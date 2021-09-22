@@ -1,14 +1,11 @@
 from array import array
 
-import numpy as np
-import pandas
-import pandas as pd
+
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 def func(out: int):
-    return out * 2
+    return out
 
 
 def main():
