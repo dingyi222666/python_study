@@ -37,16 +37,69 @@ def array_4():
 
     print(data1 + data2)
 
+    data1 = np.array([1, 2, 3, 5])
+    data2 = np.array([3, 4, 4, 5])
+    print(data1 + data2)
+
 
 def array_5():
     data = np.array([1, 3, 4, 5, 6, 7, 8, 7])
 
-    for value in data: #直接for输出
+    for value in np.nditer(data):  # 直接for输出
         print(value)
 
 
+def array_6():
+    data = np.array([
+        [1, 2, 3],
+        [4, 5, 6]])
+
+    print(data.sum(axis=1))  # 横向为1
+    print(data.sum(axis=0))  # 竖向为0
+
+    data = np.array([
+        [
+            [2, 3, 4],
+            [4, 5, 5]
+        ],
+
+    ])
+
+    print(data.sum(axis=1))  # 横向为1
+    print(data.sum(axis=0))  # 竖向为0
+
+    print(data.sum(axis=2))
+
+
+def array_7():
+    data = np.array([
+        [1, 2, 3, 4, 6],
+        [4, 3, 5, 8, 12],
+        [np.nan, 4, 12, 45, 34]
+    ])
+
+    print(data.sum(axis=0))
+    print(data[:, 0])
+    print(data.shape)  # (3,5)
+
+    # 因为每个nan都是不相等的，所以两个相同的数组做比较 不相等的一定是nan
+    for i in range(data.shape[1]):
+        temp_data = data[:, i]  # 取得列
+        count = np.count_nonzero(temp_data != temp_data)  # !=是指判断是否不一样的个数
+        if count > 0:
+            temp_no_nan: np.ndarray = temp_data[temp_data == temp_data]
+            # 有nan
+            print(temp_no_nan)
+            # 均值补充方法
+            # temp_data[np.isnan(temp_data)] = temp_no_nan.mean()
+            # 中位数补充方法
+            temp_data[np.isnan(temp_data)] = np.median(temp_no_nan)
+
+    print(data)
+
+
 def main():
-    funcs = [first_array, array_2, array_3, array_4,array_5]
+    funcs = [first_array, array_2, array_3, array_4, array_5, array_6, array_7]
     for func in funcs:
         print("run function : {} ".format(func.__name__).center(60, "-"))
         func()
